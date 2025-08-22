@@ -3,7 +3,7 @@ import tick from '../assets/tick.png';
 import not_tick from '../assets/not_tick.png';
 import delete_icon from '../assets/delete.png';
 
-export default function TodoItem({text, id, isComplete}){
+export default function TodoItem({text, id, isComplete, deleteTodo}){
     return(
         <div className="flex items-center my-3 gap-2">
             <div className="flex flex-1 items-center cursor-pointer">
@@ -14,7 +14,7 @@ export default function TodoItem({text, id, isComplete}){
 
             </div>
 
-            <img className="w-4" src={delete_icon} alt="" />
+            <img onClick={() => {deleteTodo(id)}} className="w-4 cursor-pointer" src={delete_icon} alt="" />
         </div>
     )
 }

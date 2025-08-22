@@ -29,6 +29,12 @@ export default function Todo(){
         setTodoList((prevTodo) => [...prevTodo, newTodo]);
         inputRef.current.value = "";
     }
+
+    const deleteTodo = (id) => {
+        setTodoList((prevTodos) => {
+            return prevTodos.filter((todo) => todo.id !== id);
+        })
+    }
     return(
         <div className="bg-white place-self-center w-11/12 max-w-md flex flex-col p-7 min-h-[500px] rounded-xl">
             
@@ -46,8 +52,8 @@ export default function Todo(){
 
             {/* -----Todo List------ */}
             <div>
-                {todoList.map((item, index) => {
-                    return <TodoItem key={index} text={item.text} id={item.id} isComplete={item.isComplete}/>
+                {todoList.map((item) => {
+                    return <TodoItem key={item.id} text={item.text} id={item.id} isComplete={item.isComplete} deleteTodo={deleteTodo}/>
 })}
                 
             </div>
