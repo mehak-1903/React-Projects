@@ -5,7 +5,7 @@ import TodoItem from "./TodoItem";
 
 export default function Todo(){
 
-    const [todoList, setTodoList] = useState([]);
+    const [todoList, setTodoList] = useState(localStorage.getItem("todos") ? JSON.parse(localStorage.getItem("todos")): []);
 
     const inputRef = useRef();
 
@@ -48,8 +48,7 @@ export default function Todo(){
     }
 
     useEffect(() => {
-        console.log(todoList);
-        
+        localStorage.setItem("todos", JSON.stringify(todoList))
     }, [todoList])
     return(
         <div className="bg-white place-self-center w-11/12 max-w-md flex flex-col p-7 min-h-[500px] rounded-xl">
