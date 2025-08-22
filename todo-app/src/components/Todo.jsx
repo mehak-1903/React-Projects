@@ -1,9 +1,11 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import todo_icon from '../assets/todo_icon.png';
 import TodoItem from "./TodoItem";
 
 
 export default function Todo(){
+
+    const [todoList, setTodoList] = useState([]);
 
     const inputRef = useRef();
 
@@ -14,9 +16,18 @@ export default function Todo(){
 
     const add = () => {
         const inputText = inputRef.current.value.trim();
-        console.log(inputText)
 
-        
+        if(inputText === ''){
+            return null;
+        }
+
+        const newTodo = {
+            id: Date.now(), // everytime generate a new number
+            text: inputText,
+            isComplete: false
+        }
+        setTodoList((prevTodo) => [...prevTodo, newTodo]);
+        inputRef.current.value = "";
     }
     return(
         <div className="bg-white place-self-center w-11/12 max-w-md flex flex-col p-7 min-h-[500px] rounded-xl">
@@ -35,8 +46,10 @@ export default function Todo(){
 
             {/* -----Todo List------ */}
             <div>
-                <TodoItem text= "Learn Coding"/>
-                <TodoItem text= "Learn Coding from js"/>
+                {todoList.map((item, index) => {
+                    return <TodoItem key={index} text={item.text} id={item.id} isComplete={item.isComplete}/>
+})}
+                
             </div>
         </div>
     )
